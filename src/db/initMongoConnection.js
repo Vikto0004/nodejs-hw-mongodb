@@ -10,9 +10,10 @@ export const initMongoConnection = async () => {
 
     const DB_HOST = `mongodb+srv://${user}:${password}@${url}/${db}?retryWrites=true&w=majority&appName=Cluster0`;
     await mongoose.connect(DB_HOST);
+
     console.log('Mongo connection successfully established!');
   } catch (error) {
-    console.log(error.message);
+    console.log('MongoDB: Something went wrong', error);
     throw error;
   }
 };
