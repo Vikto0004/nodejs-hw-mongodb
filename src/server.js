@@ -19,6 +19,13 @@ export function setupServer() {
   app.use(cors());
   app.use(express.json());
 
+  app.get('/', async (req, res) => {
+    res.json({
+      status: 200,
+      message: 'Successful request!',
+    });
+  });
+
   app.get('/contacts', async (req, res) => {
     const data = await getAllContacts();
 
