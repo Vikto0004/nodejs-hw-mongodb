@@ -6,6 +6,8 @@ import contactsRouter from './routers/contacts.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import authRouter from './routers/auth.js';
+import cookieParser from 'cookie-parser';
+import { authenticate } from './middlewares/authenticate.js';
 
 const PORT = Number(env('PORT', 3000));
 
@@ -20,6 +22,7 @@ export function setupServer() {
 
   app.use(logger);
   app.use(cors());
+  app.use(cookieParser());
   app.use(express.json());
 
   app.get('/', async (req, res) => {

@@ -2,17 +2,15 @@ import { SORT_ORDER } from '../constants/index.js';
 import { ContactCollection } from '../db/models/Contact.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
-export const getAllContacts = async ({
-  page = 1,
-  perPage = 10,
-  sortOrder = SORT_ORDER.ASC,
-  sortBy = '_id',
-}) => {
+export const getAllContacts = async (
+  { page = 1, perPage = 10, sortOrder = SORT_ORDER.ASC, sortBy = '_id' },
+  userId,
+) => {
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
-  const contactsQuery = ContactCollection.find();
-  const contactsCount = await ContactCollection.find()
+  const contactsQuery = ContactCollection.find({ userId });
+  const contactsCount = await ContactCollection.find({ userId })
     .merge(contactsQuery)
     .countDocuments();
 
@@ -30,13 +28,24 @@ export const getAllContacts = async ({
   };
 };
 
-export const getContactById = async (id) => {
-  return await ContactCollection.findById(id);
+export const getContactById = async (id, userId) => {
+  return await ContactCollection.findOne({
+    _id: id,
+    userId: userId,
+  });
 };
 
-export const updateContact = async (contactId, payload, options = {}) => {
+export const updateContact = async (
+  contactId,
+  payload,
+  userId,
+  options = {},
+) => {
   const rawResult = await ContactCollection.findOneAndUpdate(
-    { _id: contactId },
+    {
+      _id: contactId,
+      userId,
+    },
     payload,
     {
       new: true,
@@ -53,8 +62,8 @@ export const updateContact = async (contactId, payload, options = {}) => {
   };
 };
 
-export const createContact = async (payload) => {
-  const student = await ContactCollection.create(payload);
+export const createContact = async (payload, userId) => {
+  const student = await ContactCollection.create({ ...payload, userId });
   return student;
 };
 
