@@ -62,8 +62,8 @@ export const updateContact = async (
   };
 };
 
-export const createContact = async (payload, userId) => {
-  const student = await ContactCollection.create({ ...payload, userId });
+export const createContact = async (payload, userId, photo = '') => {
+  const student = await ContactCollection.create({ ...payload, userId, photo });
   return student;
 };
 
