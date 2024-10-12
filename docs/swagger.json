@@ -168,7 +168,6 @@
                 "required": [
                   "name",
                   "phoneNumber",
-                  "email",
                   "description",
                   "contactType"
                 ],
@@ -206,11 +205,6 @@
                     "description": "Contact's photo",
                     "type": "string",
                     "format": "binary"
-                  },
-                  "userId": {
-                    "description": "User id",
-                    "type": "string",
-                    "example": "65e4decdd286b30065d54af9"
                   }
                 }
               }
@@ -374,11 +368,6 @@
                     "description": "Contact's photo",
                     "type": "string",
                     "format": "binary"
-                  },
-                  "userId": {
-                    "description": "User id",
-                    "type": "string",
-                    "example": "65e4decdd286b30065d54af9"
                   }
                 }
               }
@@ -444,24 +433,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Delete contact by id",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "status"
-                  ],
-                  "properties": {
-                    "status": {
-                      "type": "integer",
-                      "example": 204
-                    }
-                  }
-                }
-              }
-            }
+          "204": {
+            "description": "No content"
           },
           "401": {
             "$ref": "#/components/responses/401"
